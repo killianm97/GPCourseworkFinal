@@ -136,6 +136,9 @@ xcopy /Y "C:\Users\killi\source\repos\GPCoursework\GPCoursework\SDL2\SDL2_ttf-2.
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="asteroidsGame.h" />
+    <ClInclude Include="cButton.h" />
+    <ClInclude Include="cButtonMgr.h" />
+    <ClInclude Include="cFileHandler.h" />
     <ClInclude Include="cSpaceJunk.h" />
     <ClInclude Include="cBkGround.h" />
     <ClInclude Include="cBullet.h" />
@@ -153,6 +156,9 @@ xcopy /Y "C:\Users\killi\source\repos\GPCoursework\GPCoursework\SDL2\SDL2_ttf-2.
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AsteroidsSDL.cpp" />
+    <ClCompile Include="cButton.cpp" />
+    <ClCompile Include="cButtonMgr.cpp" />
+    <ClCompile Include="cFileHandler.cpp" />
     <ClCompile Include="cSpaceJunk.cpp" />
     <ClCompile Include="cBkGround.cpp" />
     <ClCompile Include="cBullet.cpp" />

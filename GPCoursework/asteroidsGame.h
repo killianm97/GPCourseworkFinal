@@ -12,5 +12,8 @@
 #include "cSpaceShip.h"
 #include "cFontMgr.h"
 #include "cSoundMgr.h"
+#include "cButton.h"
+#include "cButtonMgr.h"
+#include "cFileHandler.h"
 
 #endif

@@ -39,8 +39,10 @@ private:
 	time_point< high_resolution_clock > m_lastTime;
 	time_point< high_resolution_clock > m_CurrentTime;
 	duration< double > deltaTime;
+	bool loop;
 
 	// Sprites for displaying background and rocket textures
+	gameState theGameState;
 	cSprite earth;
 	cSprite spriteBkgd;
 	cSpaceShip theSpaceShip;
@@ -61,10 +63,30 @@ private:
 	vector<LPCSTR> soundList;
 	vector<soundType> soundTypes;
 	vector<LPCSTR> soundsToUse;
+	// Create vector array of button textures
+	vector<LPCSTR> btnNameList;
+	vector<LPCSTR> btnTexturesToUse;
+	vector<SDL_Point> btnPos;
+	//vector <cButton> theButtons;
 	// Game objects
 	bool isPressed;
 	// Define the elements and there position in/on the array/map
 	int renderWidth, renderHeight;
+	cFileHandler theFile;
+	// Define the elements and there position in/on the array/map
+
+	cSprite dragTile;
+	SDL_Point theTileClicked;
+	SDL_Point mapTileClicked;
+//	int renderWidth, renderHeight;
+	btnTypes theBtnType;
+	SDL_Rect pos;
+	FPoint scale;
+	SDL_Rect aRect;
+	SDL_Color aColour;
+	cTexture* tempTextTexture;
+	SDL_Point theAreaClicked;
+	bool fileAvailable;
 };
 
 #endif

@@ -11,6 +11,7 @@ cGame* cGame::pInstance = NULL;
 static cTextureMgr* theTextureMgr = cTextureMgr::getInstance();
 static cFontMgr* theFontMgr = cFontMgr::getInstance();
 static cSoundMgr* theSoundMgr = cSoundMgr::getInstance();
+static cButtonMgr* theButtonMgr = cButtonMgr::getInstance();
 
 
 /*
@@ -39,80 +40,88 @@ cGame* cGame::getInstance()
 
 void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 {
+
 	// Get width and height of render context
 	SDL_GetRendererOutputSize(theRenderer, &renderWidth, &renderHeight);
 	this->m_lastTime = high_resolution_clock::now();
 	// Clear the buffer with a black background
 	SDL_SetRenderDrawColor(theRenderer, 0, 0, 0, 255);
 	SDL_RenderPresent(theRenderer);
-	
+
 	theTextureMgr->setRenderer(theRenderer);
 	theFontMgr->initFontLib();
 	theSoundMgr->initMixer();
 
-	// Store the textures
-	textureName = { "spacejunk1", "spacejunk2", "spacejunk3", "spacejunk4", "bullet","theSpaceShip","theBackground", "earth"};
-	texturesToUse = { "Images\\SpaceJunk1.png", "Images\\SpaceJunk2.png", "Images\\SpaceJunk3.png", "Images\\SpaceJunk4.png", "Images\\bullet.png", "Images\\rocketSprite.png", "Images\\space.png", "Images\\Earth.png"};
-	for (int tCount = 0; tCount < textureName.size(); tCount++)
-	{	
-		theTextureMgr->addTexture(textureName[tCount], texturesToUse[tCount]);
-	}
-	// Create textures for Game Dialogue (text)
-	fontList = { "digital", "spaceAge" };
-	fontsToUse = { "Fonts/digital-7.ttf", "Fonts/space age.ttf" };
-	for (int fonts = 0; fonts < fontList.size(); fonts++)
-	{
-		theFontMgr->addFont(fontList[fonts], fontsToUse[fonts], 34);
-	}
-	gameTextList = { "Orbital Garbage Collector"};
 	
-	theTextureMgr->addTexture("Title", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[0], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
 
-	// Load game sounds
-	soundList = { "theme", "shot", "explosion" };
-	soundTypes = { MUSIC, SFX, SFX };
-	soundsToUse = { "Audio/who10Edit.wav", "Audio/shot007.wav", "Audio/explosion2.wav" };
-	for (int sounds = 0; sounds < soundList.size(); sounds++)
-	{
-		theSoundMgr->add(soundList[sounds], soundsToUse[sounds], soundTypes[sounds]);
+	theAreaClicked = { 0, 0 };
+
+	//GameStates
+	
+
+	// Store the textures
+		textureName = { "spacejunk1", "spacejunk2", "spacejunk3", "spacejunk4", "bullet","theSpaceShip","theBackground", "earth" };
+		texturesToUse = { "Images\\SpaceJunk1.png", "Images\\SpaceJunk2.png", "Images\\SpaceJunk3.png", "Images\\SpaceJunk4.png", "Images\\bullet.png", "Images\\rocketSprite.png", "Images\\space.png", "Images\\Earth.png" };
+		for (int tCount = 0; tCount < textureName.size(); tCount++)
+		{
+			theTextureMgr->addTexture(textureName[tCount], texturesToUse[tCount]);
+		}
+		// Create textures for Game Dialogue (text)
+		fontList = { "digital", "spaceAge" };
+		fontsToUse = { "Fonts/digital-7.ttf", "Fonts/space age.ttf" };
+		for (int fonts = 0; fonts < fontList.size(); fonts++)
+		{
+			theFontMgr->addFont(fontList[fonts], fontsToUse[fonts], 34);
+		}
+		gameTextList = { "Orbital Garbage Collector" };
+
+		theTextureMgr->addTexture("Title", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[0], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
+
+		// Load game sounds
+		soundList = { "theme", "shot", "explosion" };
+		soundTypes = { MUSIC, SFX, SFX };
+		soundsToUse = { "Audio/who10Edit.wav", "Audio/shot007.wav", "Audio/explosion2.wav" };
+		for (int sounds = 0; sounds < soundList.size(); sounds++)
+		{
+			theSoundMgr->add(soundList[sounds], soundsToUse[sounds], soundTypes[sounds]);
+		}
+
+		theSoundMgr->getSnd("theme")->play(-1);
+
+		spriteBkgd.setSpritePos({ 0, 0 });
+		spriteBkgd.setTexture(theTextureMgr->getTexture("theBackground"));
+		spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theBackground")->getTWidth(), theTextureMgr->getTexture("theBackground")->getTHeight());
+
+		theSpaceShip.setSpritePos({ 500, 350 });
+		theSpaceShip.setTexture(theTextureMgr->getTexture("theSpaceShip"));
+		theSpaceShip.setSpriteDimensions(theTextureMgr->getTexture("theSpaceShip")->getTWidth(), theTextureMgr->getTexture("theSpaceShip")->getTHeight());
+		theSpaceShip.setSpaceShipVelocity({ 0, 0 });
+
+		earth.setSpritePos({ 360, 360 });
+		earth.setTexture(theTextureMgr->getTexture("earth"));
+		earth.setSpriteDimensions(theTextureMgr->getTexture("earth")->getTWidth() / 2, theTextureMgr->getTexture("earth")->getTHeight() / 2);
+
+		// Create vector array of textures
+
+		for (int junk = 0; junk < 4; junk++)
+		{
+			theSpaceJunks.push_back(new cSpaceJunk);
+			//	theAsteroids[astro]->setSpritePos({ 100 * (rand() % 5 + 1), 50 * (rand() % 5 + 1) });
+			//	theAsteroids[astro]->setSpriteTranslation({ (rand() % 8 + 1), (rand() % 8 + 1) });
+			theSpaceJunks[junk]->setSpritePos({ 340 , 340 });
+			theSpaceJunks[junk]->setSpriteTranslation({ 30, 0 });
+			int randSpaceJunk = rand() % 4;
+			theSpaceJunks[junk]->setTexture(theTextureMgr->getTexture(textureName[randSpaceJunk]));
+			theSpaceJunks[junk]->setSpriteDimensions(theTextureMgr->getTexture(textureName[randSpaceJunk])->getTWidth(), theTextureMgr->getTexture(textureName[randSpaceJunk])->getTHeight());
+			theSpaceJunks[junk]->setSpaceJunkVelocity({ 0, 0 });
+			theSpaceJunks[junk]->setActive(true);
+		}
 	}
 
-	theSoundMgr->getSnd("theme")->play(-1);
-
-	spriteBkgd.setSpritePos({ 0, 0 });
-	spriteBkgd.setTexture(theTextureMgr->getTexture("theBackground"));
-	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theBackground")->getTWidth(), theTextureMgr->getTexture("theBackground")->getTHeight());
-
-	theSpaceShip.setSpritePos({ 500, 350 });
-	theSpaceShip.setTexture(theTextureMgr->getTexture("theSpaceShip"));
-	theSpaceShip.setSpriteDimensions(theTextureMgr->getTexture("theSpaceShip")->getTWidth(), theTextureMgr->getTexture("theSpaceShip")->getTHeight());
-	theSpaceShip.setSpaceShipVelocity({ 0, 0 });
-
-	earth.setSpritePos({ 360, 360 });
-	earth.setTexture(theTextureMgr->getTexture("earth"));
-	earth.setSpriteDimensions(theTextureMgr->getTexture("earth")->getTWidth() / 2, theTextureMgr->getTexture("earth")->getTHeight() / 2);
-
-	// Create vector array of textures
-
-	for (int junk = 0; junk < 4; junk++)
-	{
-		theSpaceJunks.push_back(new cSpaceJunk);
-	//	theAsteroids[astro]->setSpritePos({ 100 * (rand() % 5 + 1), 50 * (rand() % 5 + 1) });
-	//	theAsteroids[astro]->setSpriteTranslation({ (rand() % 8 + 1), (rand() % 8 + 1) });
-		theSpaceJunks[junk]->setSpritePos({ 340 , 340 });
-		theSpaceJunks[junk]->setSpriteTranslation({ 30, 0});
-		int randSpaceJunk = rand() % 4;
-		theSpaceJunks[junk]->setTexture(theTextureMgr->getTexture(textureName[randSpaceJunk]));
-		theSpaceJunks[junk]->setSpriteDimensions(theTextureMgr->getTexture(textureName[randSpaceJunk])->getTWidth(), theTextureMgr->getTexture(textureName[randSpaceJunk])->getTHeight());
-		theSpaceJunks[junk]->setSpaceJunkVelocity({ 0, 0 });
-		theSpaceJunks[junk]->setActive(true);
-	}
-
-}
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 {
-	bool loop = true;
+	loop = true;
 	isPressed = false;
 
 	while (loop)
@@ -128,6 +137,15 @@ void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 {
+	SDL_RenderClear(theRenderer);
+	
+	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
+
+
+
+	
+	
+	
 	SDL_RenderClear(theRenderer);
 	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
 	// Render each spaceJunk in the vector array
