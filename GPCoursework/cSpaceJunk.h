@@ -2,7 +2,7 @@
 =================
 cSpaceJunk.h
 - Header file for class definition - SPECIFICATION
-- Header file for the OrbitalTrashCan class which is a child of cSprite class
+- Header file for the SpaceJunk class which is a child of cSprite class
 =================
 */
 #ifndef _CSPACEJUNK_H
@@ -16,6 +16,7 @@ private:
 
 public:
 	cSpaceJunk();
+	bool isPlaying;
 	void update(double deltaTime);		// OrbitalTrashCan update method
 	void setSpaceJunkVelocity(SDL_Point spaceJunkVel);   // Sets the velocity for the spacejunk
 	SDL_Point getSpaceJunkVelocity();				 // Gets the space junk velocity

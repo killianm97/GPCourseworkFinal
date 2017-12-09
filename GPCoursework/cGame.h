@@ -29,6 +29,7 @@ public:
 	void update(double deltaTime);
 	bool getInput(bool theLoop);
 	double getElapsedSeconds();
+	bool isPlaying;
 
 	static cGame* getInstance();
 
@@ -58,6 +59,7 @@ private:
 	vector<LPCSTR> fontList;
 	vector<LPCSTR> fontsToUse;
 	// Text for Game
+	vector<LPCSTR> gameTextNames;
 	vector<LPCSTR> gameTextList;
 	// Game Sounds
 	vector<LPCSTR> soundList;
@@ -75,9 +77,7 @@ private:
 	cFileHandler theFile;
 	// Define the elements and there position in/on the array/map
 
-	cSprite dragTile;
-	SDL_Point theTileClicked;
-	SDL_Point mapTileClicked;
+
 //	int renderWidth, renderHeight;
 	btnTypes theBtnType;
 	SDL_Rect pos;
@@ -86,7 +86,6 @@ private:
 	SDL_Color aColour;
 	cTexture* tempTextTexture;
 	SDL_Point theAreaClicked;
-	bool fileAvailable;
 };
 
 #endif

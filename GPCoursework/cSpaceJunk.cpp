@@ -5,6 +5,7 @@ cAsteroid.cpp
 =================
 */
 #include "cSpaceJunk.h"
+#include "cGame.h"
 
 /*
 =================================================================
@@ -23,22 +24,23 @@ Update the sprite position
 
 void cSpaceJunk::update(double deltaTime)
 {
+	
 
 
+		this->setSpriteRotAngle(this->getSpriteRotAngle() + (2.0f * deltaTime));
+		if (this->getSpriteRotAngle() > 360)
+		{
+			this->setSpriteRotAngle(this->getSpriteRotAngle() - 360);
+		}
 
-	this->setSpriteRotAngle(this->getSpriteRotAngle() +(2.0f * deltaTime)); 
-	if (this->getSpriteRotAngle() > 360)
-	{
-		this->setSpriteRotAngle(this->getSpriteRotAngle() -360);
-	}
+		SDL_Rect currentSpritePos = this->getSpritePos();
+		currentSpritePos.x += this->getSpriteTranslation().x * deltaTime;
+		currentSpritePos.y += this->getSpriteTranslation().y * deltaTime;
 
-	SDL_Rect currentSpritePos = this->getSpritePos();
-	currentSpritePos.x += this->getSpriteTranslation().x * deltaTime;
-	currentSpritePos.y += this->getSpriteTranslation().y * deltaTime;
-
-	this->setSpritePos({ currentSpritePos.x, currentSpritePos.y });
-	cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;
-	this->setBoundingRect(this->getSpritePos());
+		this->setSpritePos({ currentSpritePos.x, currentSpritePos.y });
+		//cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;
+		this->setBoundingRect(this->getSpritePos());
+	
 }
 /*
 =================================================================
