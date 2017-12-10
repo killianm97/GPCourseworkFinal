@@ -5,6 +5,7 @@ cBullet.cpp
 =================
 */
 #include "cBullet.h"
+#include <math.h>
 
 /*
 =================================================================
@@ -28,6 +29,8 @@ void cBullet::update(double deltaTime)
 	direction.X = (sin((this->getSpriteRotAngle())*PI/180));
 	direction.Y = -(cos((this->getSpriteRotAngle())*PI / 180));
 
+	
+
 	direction.X *= this->getSpriteTranslation().x;
 	direction.Y *= this->getSpriteTranslation().y;
 
@@ -35,8 +38,8 @@ void cBullet::update(double deltaTime)
 	this->bulletVelocity.y = this->bulletVelocity.y + direction.Y;
 
 	SDL_Rect currentSpritePos = this->getSpritePos();
-	currentSpritePos.x += this->bulletVelocity.x * deltaTime;
-	currentSpritePos.y += this->bulletVelocity.y * deltaTime;
+	currentSpritePos.x += this->bulletVelocity.x *deltaTime;
+	currentSpritePos.y += this->bulletVelocity.y *deltaTime;
 
 	this->setSpritePos({ currentSpritePos.x, currentSpritePos.y });
 

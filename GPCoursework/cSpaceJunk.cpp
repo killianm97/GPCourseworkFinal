@@ -5,7 +5,6 @@ cAsteroid.cpp
 =================
 */
 #include "cSpaceJunk.h"
-#include "cGame.h"
 
 /*
 =================================================================
@@ -14,7 +13,7 @@ Defualt Constructor
 */
 cSpaceJunk::cSpaceJunk() : cSprite()
 {
-	this->spaceJunkVelocity = { 50, 50 };
+	//this->spaceJunkVelocity = { 0, 0 };
 }
 /*
 =================================================================
@@ -34,12 +33,13 @@ void cSpaceJunk::update(double deltaTime)
 		}
 
 		SDL_Rect currentSpritePos = this->getSpritePos();
-		currentSpritePos.x += this->getSpriteTranslation().x * deltaTime;
-		currentSpritePos.y += this->getSpriteTranslation().y * deltaTime;
+		currentSpritePos.x += this->getSpriteTranslation().x /45;// * deltaTime; For some reason deltaTime fucks it
+		currentSpritePos.y += this->getSpriteTranslation().y /45;// * deltaTime;
 
-		this->setSpritePos({ currentSpritePos.x, currentSpritePos.y });
+		this->setSpritePos({ currentSpritePos.x, currentSpritePos.y});
 		//cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;
 		this->setBoundingRect(this->getSpritePos());
+	
 	
 }
 /*

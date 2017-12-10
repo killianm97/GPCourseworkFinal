@@ -26,7 +26,7 @@ Update the sprite position
 
 void cSpaceShip::update(double deltaTime)
 {
-	FPoint circleCentre = {329, 329};
+	FPoint circleCentre = {329, 420};
 
 	float circleRadius = 320;
 

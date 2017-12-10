@@ -31,7 +31,7 @@ using namespace std;
 //Define the string to appear in the top left corner of the window
 #define WINDOW_TITLE "Orbital Garbage Collector"
 #define WINDOW_WIDTH 720
-#define WINDOW_HEIGHT 720
+#define WINDOW_HEIGHT 840
 
 // This header file contains all the constants & enumarated types for the game
 typedef struct
