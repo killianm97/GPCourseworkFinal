@@ -61,8 +61,8 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	theGameState = MENU;
 
 	// Store the textures
-	textureName = { "spacejunk1", "spacejunk2", "spacejunk3", "spacejunk4", "bullet","theSpaceShip", "theSpaceShipTurbo", "theBackground", "earth", "TopBorder", "BottomBorder", "LeftBorder", "RightBorder" };
-	texturesToUse = { "Images\\SpaceJunk1.png", "Images\\SpaceJunk2.png", "Images\\SpaceJunk3.png", "Images\\SpaceJunk4.png", "Images\\bullet.png", "Images\\rocketSprite.png", "Images\\rocketSprite Turbo.png", "Images\\space.png", "Images\\moon.png", "Images\\TopBorder.png", "Images\\BottomBorder.png", "Images\\LeftBorder.png", "Images\\RightBorder.png" };
+	textureName = { "spacejunk1", "spacejunk2", "spacejunk3", "spacejunk4", "bullet","theSpaceShip", "theSpaceShipTurbo", "theBackground", "earth", "TopBorder", "BottomBorder", "LeftBorder", "RightBorder", "EndScreen", "SpaceBar", "LeftArrow", "RightArrow" };
+	texturesToUse = { "Images\\SpaceJunk1.png", "Images\\SpaceJunk2.png", "Images\\SpaceJunk3.png", "Images\\SpaceJunk4.png", "Images\\bullet.png", "Images\\rocketSprite.png", "Images\\rocketSprite Turbo.png", "Images\\space.png", "Images\\moon.png", "Images\\TopBorder.png", "Images\\BottomBorder.png", "Images\\LeftBorder.png", "Images\\RightBorder.png", "Images\\EndScreen.jpg", "Images\\SpaceKey.png", "Images\\LeftArrowKey.png", "Images\\RightArrowKey.png", };
 	for (int tCount = 0; tCount < textureName.size(); tCount++)
 	{
 		theTextureMgr->addTexture(textureName[tCount], texturesToUse[tCount]);
@@ -92,13 +92,14 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	{
 		theFontMgr->addFont(fontList[fonts], fontsToUse[fonts], 34);
 	}
-	gameTextNames = { "Main Screen Title", "Main Screen Subtext", "Playing Screen Title", "HighScore" };
-	gameTextList = { "Orbital Garbage Collector", "Collect All the Rubbish!", "Orbital Garbage Collector", "Score: 0" };
+	gameTextNames = { "MainTitle", "SubTitle", "Score", "GameOver" };
+	gameTextList = { "Orbital Garbage Collector", "Collect All the Rubbish!", "Score: 0", "Game Over!" };
 
-	theTextureMgr->addTexture("PlayingTitle", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[0], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
-	theTextureMgr->addTexture("CreateTxt", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[1], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
-	theTextureMgr->addTexture("Title", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[0], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
-	theTextureMgr->addTexture("HighScore", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[3], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
+	theTextureMgr->addTexture("MainTitle", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[0], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
+	theTextureMgr->addTexture("SubTitle", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[1], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
+	theTextureMgr->addTexture("Score", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[2], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
+	theTextureMgr->addTexture("GameOver", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[3], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
+
 	for (int text = 0; text < gameTextNames.size(); text++)
 		//	{
 		//		theTextureMgr->addTexture(gameTextNames[text], theFontMgr->getFont("digital")->createTextTexture(theRenderer, gameTextList[text], SOLID, { 228, 213, 238, 255 }, { 0, 0, 0, 0 }));
@@ -106,18 +107,35 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 
 			// Load game sounds
-	soundList = { "MenuMusic", "shot", "explosion" };
-	soundTypes = { MUSIC, SFX, SFX };
-	soundsToUse = { "Audio/MenuMusic.wav", "Audio/shot007.wav", "Audio/explosion2.wav" };
+	soundList = { "MainMusic", "shot", "crunch", "beep" };
+	soundTypes = { MUSIC, SFX, SFX, SFX };
+	soundsToUse = { "Audio/MainMusic.wav", "Audio/shot007.wav", "Audio/Crunch.wav", "Audio/Beep.wav" };
 	for (int sounds = 0; sounds < soundList.size(); sounds++)
 	{
 		theSoundMgr->add(soundList[sounds], soundsToUse[sounds], soundTypes[sounds]);
 	}
 	
-	theSoundMgr->getSnd("MenuMusic")->play(-1);
+	theSoundMgr->getSnd("MainMusic")->play(-1);
 
-	earth.setSpritePos({ 360, 420 });
+	earth.setSpritePos({ 0, 0 });
 	earth.setTexture(theTextureMgr->getTexture("earth"));
+	earth.setSpriteDimensions(theTextureMgr->getTexture("earth")->getTWidth(), theTextureMgr->getTexture("earth")->getTHeight());
+
+	/*spaceKey.setSpritePos({ 100, 100 });
+	spaceKey.setTexture(theTextureMgr->getTexture("SpaceBar"));
+	spaceKey.setSpriteDimensions(theTextureMgr->getTexture("SpaceBar")->getTWidth(), theTextureMgr->getTexture("SpaceBar")->getTHeight());
+
+	leftArrowKey.setSpritePos({ 200, 200 });
+	leftArrowKey.setTexture(theTextureMgr->getTexture("LeftArrow"));
+	leftArrowKey.setSpriteDimensions(theTextureMgr->getTexture("LeftArrow")->getTWidth(), theTextureMgr->getTexture("LeftArrow")->getTHeight());
+
+	rightArrowKey.setSpritePos({ 300, 300 });
+	rightArrowKey.setTexture(theTextureMgr->getTexture("RightArrow"));
+	rightArrowKey.setSpriteDimensions(theTextureMgr->getTexture("RightArrow")->getTWidth(), theTextureMgr->getTexture("RightArrow")->getTHeight());
+	*/
+	endScreen.setSpritePos({ 0, 0 });
+	endScreen.setTexture(theTextureMgr->getTexture("EndScreen"));
+	endScreen.setSpriteDimensions(theTextureMgr->getTexture("EndScreen")->getTWidth(), theTextureMgr->getTexture("EndScreen")->getTHeight());
 
 
 	spriteBkgd.setSpritePos({ 0, 0 });
@@ -125,7 +143,7 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theBackground")->getTWidth(), theTextureMgr->getTexture("theBackground")->getTHeight());
 
 
-	theSpaceShip.setSpritePos({ 500, 350 });
+	theSpaceShip.setSpritePos({ 328, 768 });
 	theSpaceShip.setTexture(theTextureMgr->getTexture("theSpaceShip"));
 	theSpaceShip.setSpriteDimensions(theTextureMgr->getTexture("theSpaceShip")->getTWidth(), theTextureMgr->getTexture("theSpaceShip")->getTHeight());
 	theSpaceShip.setSpaceShipVelocity({ 0, 0 });
@@ -138,40 +156,40 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		
 		
 		//if (theGameState == PLAYING){
-			for (int junk = 0; junk < 10; junk++)
-			{
-				theSpaceJunks.push_back(new cSpaceJunk);
-				theSpaceJunks[junk]->setSpritePos({ 359, 479});
-				
-				//theSpaceJunks[junk]->setSpritePos({ 100 * (rand() % 7 + 1), 50 * (rand() % 7 + 1) });
-				
-				int PosOrNeg1 = rand() % 4 + 2;
-				int PosOrNeg2 = rand() % 4 + 2;
-				int TotalDirection = 35;
-				int Direction1 = (TotalDirection - (rand() % TotalDirection));
-				//rand() % 20 + 10);
-				int Direction2 = (TotalDirection - Direction1);
-				//cout << Direction1 << " and " << Direction2 << " equal " << TotalDirection << endl;//rand() % 20 + 10);
-				if (PosOrNeg1 > 2) {
-					Direction1 = Direction1 * -1;
-				}
-				if (PosOrNeg2 > 2) {
-					Direction2 = Direction2 * -1;
-				}
-				cout << Direction1 << " and " << Direction2 << " equal " << TotalDirection << endl;
-				theSpaceJunks[junk]->setSpriteTranslation({ Direction1, Direction2 });
-				
-				
-				//theSpaceJunks[junk]->setSpritePos({ 340 , 340 });
-				//int randDirection1 = rand() % 100 + 25;
-				//int randDirection2 = rand() % 100 + 50;
-				//theSpaceJunks[junk]->setSpriteTranslation({ randDirection1, randDirection2 });
-				int randSpaceJunk = rand() % 4;
-				theSpaceJunks[junk]->setTexture(theTextureMgr->getTexture(textureName[randSpaceJunk]));
-				theSpaceJunks[junk]->setSpriteDimensions(theTextureMgr->getTexture(textureName[randSpaceJunk])->getTWidth(), theTextureMgr->getTexture(textureName[randSpaceJunk])->getTHeight());
-				theSpaceJunks[junk]->setSpaceJunkVelocity({ 0, 0 });
-				theSpaceJunks[junk]->setActive(true);
-			}
+	for (int junk = 0; junk < 10; junk++)
+	{
+		theSpaceJunks.push_back(new cSpaceJunk);
+		theSpaceJunks[junk]->setSpritePos({ 359, 479 });
+
+		//theSpaceJunks[junk]->setSpritePos({ 100 * (rand() % 7 + 1), 50 * (rand() % 7 + 1) });
+
+		int PosOrNeg1 = rand() % 4 + 2;
+		int PosOrNeg2 = rand() % 4 + 2;
+		int TotalDirection = 35;
+		int Direction1 = (TotalDirection - (rand() % TotalDirection));
+		//rand() % 20 + 10);
+		int Direction2 = (TotalDirection - Direction1);
+		//cout << Direction1 << " and " << Direction2 << " equal " << TotalDirection << endl;//rand() % 20 + 10);
+		if (PosOrNeg1 > 2) {
+			Direction1 = Direction1 * -1;
+		}
+		if (PosOrNeg2 > 2) {
+			Direction2 = Direction2 * -1;
+		}
+		cout << Direction1 << " and " << Direction2 << " equal " << TotalDirection << endl;
+		theSpaceJunks[junk]->setSpriteTranslation({ Direction1, Direction2 });
+
+
+		//theSpaceJunks[junk]->setSpritePos({ 340 , 340 });
+		//int randDirection1 = rand() % 100 + 25;
+		//int randDirection2 = rand() % 100 + 50;
+		//theSpaceJunks[junk]->setSpriteTranslation({ randDirection1, randDirection2 });
+		int randSpaceJunk = rand() % 4;
+		theSpaceJunks[junk]->setTexture(theTextureMgr->getTexture(textureName[randSpaceJunk]));
+		theSpaceJunks[junk]->setSpriteDimensions(theTextureMgr->getTexture(textureName[randSpaceJunk])->getTWidth(), theTextureMgr->getTexture(textureName[randSpaceJunk])->getTHeight());
+		theSpaceJunks[junk]->setSpaceJunkVelocity({ 0, 0 });
+		theSpaceJunks[junk]->setActive(true);
+	}
 		//}
 	}
 
@@ -180,10 +198,6 @@ void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 {
 	loop = true;
 	isPressed = false;
-
-
-	
-		
 
 
 
@@ -207,18 +221,21 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	case MENU:
 	{
 		SDL_RenderClear(theRenderer);
-		//theSoundMgr->getSnd("MenuMusic")->play(-1);
 		isPlaying = false;
 		spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
+		/*spaceKey.render(theRenderer, NULL, NULL, spaceKey.getSpriteScale());
+		rightArrowKey.render(theRenderer, NULL, NULL, rightArrowKey.getSpriteScale());
+		leftArrowKey.render(theRenderer, NULL, NULL, leftArrowKey.getSpriteScale());
+		*/
 		// Render the Title
 
 		cTexture* tempTextTexture[2];
-		(*tempTextTexture) = theTextureMgr->getTexture("PlayingTitle");
-		SDL_Rect pos1 = { 0, 0, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		(*tempTextTexture) = theTextureMgr->getTexture("MainTitle");
+		SDL_Rect pos1 = { 5, 0, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
 		FPoint scale1 = { 1, 1 };
 		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos1, scale1);
 
-		(*tempTextTexture) = theTextureMgr->getTexture("CreateTxt");
+		(*tempTextTexture) = theTextureMgr->getTexture("SubTitle");
 		SDL_Rect pos2 = { 10, 50, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
 		FPoint scale2 = { 1, 1 };
 		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos2, scale2);
@@ -242,25 +259,22 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	{
 		SDL_RenderClear(theRenderer);
 		isPlaying = true;
-	//	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
-		
-		SDL_RenderClear(theRenderer);
+	
 		spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
 		// Render each spaceJunk in the vector array
-		earth.render(theRenderer, NULL, NULL, earth.getSpriteScale());
+		
 		
 		if (scoreChanged) {
 
-			gameTextList[3] = currentScore.c_str();
-			theTextureMgr->addTexture("HighScore", theFontMgr->getFont("digital")->createTextTexture(theRenderer, gameTextList[3], SOLID, { 0, 255, 0, 255 }, { 0, 0, 0, 0 }));
-
-
+			gameTextList[2] = scoreAsString.c_str();
+			theTextureMgr->addTexture("Score", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[2], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
 			scoreChanged = false;
 		}
-		tempTextTexture = theTextureMgr->getTexture("HighScore");
+		tempTextTexture = theTextureMgr->getTexture("Score");
 		pos = { 10, 50, tempTextTexture->getTextureRect().w, tempTextTexture->getTextureRect().h};
 		scale = {1, 1};
 		tempTextTexture->renderTexture(theRenderer, tempTextTexture->getTexture(), &tempTextTexture->getTextureRect(), &pos, scale);
+		//SDL_RenderPresent(theRenderer);
 
 		//if (PLAYING == true) {
 			for (int draw = 0; draw < theSpaceJunks.size(); draw++)
@@ -276,26 +290,47 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		
 
 		// Render the Title
-		cTexture* tempTextTexture = theTextureMgr->getTexture("Title");
-		SDL_Rect pos = { 0, 0, tempTextTexture->getTextureRect().w, tempTextTexture->getTextureRect().h };
-		FPoint scale = { 0.5, 0.5 };
+		cTexture* tempTextTexture = theTextureMgr->getTexture("MainTitle");
+		SDL_Rect pos = { 5, 0, tempTextTexture->getTextureRect().w, tempTextTexture->getTextureRect().h };
+		FPoint scale = { 1, 1 };
 		tempTextTexture->renderTexture(theRenderer, tempTextTexture->getTexture(), &tempTextTexture->getTextureRect(), &pos, scale);
 		
 		
 		// render the rocket
 		theSpaceShip.render(theRenderer, &theSpaceShip.getSpriteDimensions(), &theSpaceShip.getSpritePos(), theSpaceShip.getSpriteRotAngle(), &theSpaceShip.getSpriteCentre(), theSpaceShip.getSpriteScale());
+		
 		// Render the Buttons
 		theButtonMgr->getBtn("stop_btn")->setSpritePos({ 310, 30 });
 		theButtonMgr->getBtn("stop_btn")->render(theRenderer, &theButtonMgr->getBtn("stop_btn")->getSpriteDimensions(), &theButtonMgr->getBtn("stop_btn")->getSpritePos(), theButtonMgr->getBtn("stop_btn")->getSpriteScale());
 
 		//Render the Earth
-		//earth.render(theRenderer, NULL, NULL, earth.getSpriteScale());
+		earth.render(theRenderer, NULL, NULL, earth.getSpriteScale());
 	}
 	break;
 	case END:
 	{
+
 		SDL_RenderClear(theRenderer);
-		earth.render(theRenderer, NULL, NULL, earth.getSpriteScale());
+		//spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
+
+		endScreen.render(theRenderer, NULL, NULL, endScreen.getSpriteScale());
+		cTexture* tempTextTexture[3];
+		// Render the Title
+		(*tempTextTexture) = theTextureMgr->getTexture("MainTitle");
+		SDL_Rect pos1 = { 5, 0, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		FPoint scale1 = { 1, 1 };
+		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos1, scale1);
+
+
+		(*tempTextTexture) = theTextureMgr->getTexture("Score");
+		SDL_Rect pos2 = { 250, 100, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		FPoint scale2 = { 1, 1 };
+		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos2, scale2);
+
+		(*tempTextTexture) = theTextureMgr->getTexture("GameOver");
+		SDL_Rect pos3 = { 230, 150, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		FPoint scale3 = { 1, 1 };
+		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos3, scale3);
 
 		//theSoundMgr->getSnd("EndMusic")->play(-1);
 		isPlaying = false;
@@ -359,6 +394,7 @@ void cGame::update(double deltaTime)
 	default:
 		break;
 	case MENU: {
+		gameTextList[2] = "Score: 0";
 		theGameState = theButtonMgr->getBtn("play_btn")->update(theGameState, PLAYING, theAreaClicked);
 		theGameState = theButtonMgr->getBtn("exit_btn")->update(theGameState, QUIT, theAreaClicked);
 	}
@@ -379,7 +415,11 @@ void cGame::update(double deltaTime)
 				++spaceJunkIterator;
 			}
 		}
+		
 
+		
+		
+		
 	
 		for (vector<cSpaceJunk*>::iterator spaceJunkIterator = theSpaceJunks.begin(); spaceJunkIterator != theSpaceJunks.end(); ++spaceJunkIterator)
 		{
@@ -391,15 +431,17 @@ void cGame::update(double deltaTime)
 					// if a collision set the bullet and asteroid to false
 					(*spaceJunkIterator)->setActive(false);
 					//	(*bulletIterartor)->setActive(false);
-					theSoundMgr->getSnd("explosion")->play(0);
+					theSoundMgr->getSnd("crunch")->play(0);
 					score++;
-					if (theTextureMgr->getTexture("HighScore") != NULL) {
-						theTextureMgr->deleteTexture("HighScore");
+					if (theTextureMgr->getTexture("Score") != NULL) {
+						theTextureMgr->deleteTexture("Score");
 					}
-					cout << "Score is: "<< score;
+					string theScore = to_string(score);
+					scoreAsString = "score: " + theScore;
+
+					//cout << "Score is: "<< score;
 					scoreChanged = true;
 				
-					currentScore = "Score: " + score;
 				
 				
 				}
@@ -476,6 +518,10 @@ bool cGame::getInput(bool theLoop)
 			{
 				theAreaClicked = { event.motion.x, event.motion.y };
 				cout << "the mouse position is x= " << event.motion.x << "and y= " << event.motion.y << endl;
+				theSoundMgr->getSnd("beep")->play(0);
+			
+				
+
 				//cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;
 
 			}

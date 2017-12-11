@@ -32,7 +32,7 @@ public:
 	bool isPlaying;
 	int score;
 	bool scoreChanged;
-	string currentScore;
+	string scoreAsString;
 
 	static cGame* getInstance();
 
@@ -48,6 +48,10 @@ private:
 	// Sprites for displaying background and rocket textures
 	gameState theGameState;
 	cSprite earth;
+	cSprite rightArrowKey;
+	cSprite leftArrowKey;
+	cSprite spaceKey;
+	cSprite endScreen;
 	cSprite spriteBkgd;
 	cSpaceShip theSpaceShip;
 	cSpaceJunk theSpaceJunk;

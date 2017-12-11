@@ -71,6 +71,7 @@ cButton* cButtonMgr::getBtn(LPCSTR btnName)        // return the texture.
 	map<LPCSTR, cButton*>::iterator btn = gameBtns.find(btnName);
 	if (btn != gameBtns.end())
 	{
+	
 		return btn->second;
 	}
 	else
