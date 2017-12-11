@@ -13,7 +13,7 @@ Defualt Constructor
 */
 cSpaceJunk::cSpaceJunk() : cSprite()
 {
-	//this->spaceJunkVelocity = { 0, 0 };
+	this->spaceJunkVelocity = { 0, 0 };
 }
 /*
 =================================================================
@@ -32,9 +32,10 @@ void cSpaceJunk::update(double deltaTime)
 			this->setSpriteRotAngle(this->getSpriteRotAngle() - 360);
 		}
 
+
 		SDL_Rect currentSpritePos = this->getSpritePos();
-		currentSpritePos.x += this->getSpriteTranslation().x /45;// * deltaTime; For some reason deltaTime fucks it
-		currentSpritePos.y += this->getSpriteTranslation().y /45;// * deltaTime;
+		currentSpritePos.x += this->getSpriteTranslation().x /25;// * deltaTime; For some reason deltaTime fucks it
+		currentSpritePos.y += this->getSpriteTranslation().y /25;// * deltaTime;
 
 		this->setSpritePos({ currentSpritePos.x, currentSpritePos.y});
 		//cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;

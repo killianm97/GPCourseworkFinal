@@ -30,6 +30,9 @@ public:
 	bool getInput(bool theLoop);
 	double getElapsedSeconds();
 	bool isPlaying;
+	int score;
+	bool scoreChanged;
+	string currentScore;
 
 	static cGame* getInstance();
 

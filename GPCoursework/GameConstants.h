@@ -29,7 +29,7 @@ using namespace std::chrono;
 using namespace std;
 
 //Define the string to appear in the top left corner of the window
-#define WINDOW_TITLE "Orbital Garbage Collector"
+#define WINDOW_TITLE "Orbital Garbage Collector - Games Programming 1 Coursework by Killian Mangan"
 #define WINDOW_WIDTH 720
 #define WINDOW_HEIGHT 840
 
