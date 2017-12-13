@@ -31,8 +31,10 @@ public:
 	double getElapsedSeconds();
 	bool isPlaying;
 	int score;
+	int shadowScore;
 	bool scoreChanged;
 	string scoreAsString;
+	string shadowScoreAsString;
 
 	static cGame* getInstance();
 
@@ -44,13 +46,26 @@ private:
 	time_point< high_resolution_clock > m_CurrentTime;
 	duration< double > deltaTime;
 	bool loop;
+	bool play;
+	float timerCurrent;
+	float timerTotal;
+	float totalTimePlaying;
+	int difficulty;
 
 	// Sprites for displaying background and rocket textures
 	gameState theGameState;
+	cSprite topBanner;
+	cSprite topBorder;
+	cSprite bottomBorder;
+	cSprite leftBorder;
+	cSprite rightBorder;
+	cSprite orangeBackground1;
+	cSprite orangeBackground2;
+	cSprite orangeBackground3;
 	cSprite earth;
 	cSprite rightArrowKey;
 	cSprite leftArrowKey;
-	cSprite spaceKey;
+	cSprite controlKey;
 	cSprite endScreen;
 	cSprite spriteBkgd;
 	cSpaceShip theSpaceShip;

@@ -24,6 +24,8 @@ Update the sprite position
 =================================================================
 */
 
+
+
 void cSpaceShip::update(double deltaTime)
 {
 	FPoint circleCentre = {328, 448};
