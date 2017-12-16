@@ -321,12 +321,12 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos2, scale2);
 
 		(*tempTextTexture) = theTextureMgr->getTexture("ClockWiseText");
-		SDL_Rect pos3 = { 255, 550, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		SDL_Rect pos3 = { 255, 375, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
 		FPoint scale3 = { 1, 1 };
 		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos3, scale3);
 
 		(*tempTextTexture) = theTextureMgr->getTexture("CounterClockWiseText");
-		SDL_Rect pos4 = { 255, 375, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		SDL_Rect pos4 = { 255, 550, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
 		FPoint scale4 = { 1, 1 };
 		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos4, scale4);
 
