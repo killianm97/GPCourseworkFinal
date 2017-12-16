@@ -1,6 +1,6 @@
 /*
 =================
-cAsteroid.cpp
+cSpaceJunk.cpp
 - Header file for class definition - IMPLEMENTATION
 =================
 */
@@ -26,7 +26,7 @@ void cSpaceJunk::update(double deltaTime)
 	
 
 
-		this->setSpriteRotAngle(this->getSpriteRotAngle() + (2.0f * deltaTime));
+		this->setSpriteRotAngle(this->getSpriteRotAngle() + (20.0f * deltaTime));
 		if (this->getSpriteRotAngle() > 360)
 		{
 			this->setSpriteRotAngle(this->getSpriteRotAngle() - 360);
@@ -38,7 +38,7 @@ void cSpaceJunk::update(double deltaTime)
 		currentSpritePos.y += this->getSpriteTranslation().y /25;// * deltaTime;
 
 		this->setSpritePos({ currentSpritePos.x, currentSpritePos.y});
-		cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;
+		//cout << "Asteroid position - x: " << this->getSpritePos().x << " y: " << this->getSpritePos().y << " deltaTime: " << deltaTime << endl;
 		this->setBoundingRect(this->getSpritePos());
 	
 	

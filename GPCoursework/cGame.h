@@ -10,7 +10,7 @@ cGame.h
 #include <SDL.h>
 
 // Game specific includes
-#include "asteroidsGame.h"
+#include "oGCGame.h"
 
 
 using namespace std;
@@ -29,13 +29,7 @@ public:
 	void update(double deltaTime);
 	bool getInput(bool theLoop);
 	double getElapsedSeconds();
-	bool isPlaying;
-	int score;
-	int shadowScore;
-	bool scoreChanged;
-	string scoreAsString;
-	string shadowScoreAsString;
-
+	
 	static cGame* getInstance();
 
 private:
@@ -51,6 +45,26 @@ private:
 	float timerTotal;
 	float totalTimePlaying;
 	int difficulty;
+
+
+	bool isPlaying;
+	int score;
+	int shadowScore;
+	bool scoreChanged;
+	string scoreAsString;
+	string shadowScoreAsString;
+
+	int newRecentScore;
+	cFileHandler scoreFile;
+	bool fileAvailable;
+
+
+	//josh help
+//	bool latestscores;
+	string scoreAsString3;
+	string NewScoreAsString;
+	//int latestscore;
+	//bool newscoreChanged;
 
 	// Sprites for displaying background and rocket textures
 	gameState theGameState;
@@ -70,13 +84,11 @@ private:
 	cSprite spriteBkgd;
 	cSpaceShip theSpaceShip;
 	cSpaceJunk theSpaceJunk;
-	cBullet theBullet;
 	// game related variables
 	vector<LPCSTR> textureName;
 	vector<LPCSTR> textName;
 	vector<LPCSTR> texturesToUse;
 	vector<cSpaceJunk*> theSpaceJunks;
-	vector<cBullet*> theBullets;
 	// Fonts to use
 	vector<LPCSTR> fontList;
 	vector<LPCSTR> fontsToUse;
@@ -96,7 +108,6 @@ private:
 	bool isPressed;
 	// Define the elements and there position in/on the array/map
 	int renderWidth, renderHeight;
-	cFileHandler theFile;
 	// Define the elements and there position in/on the array/map
 
 

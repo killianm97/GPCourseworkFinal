@@ -15,8 +15,8 @@ Constructor
 */
 cSDL2WNDManager::cSDL2WNDManager()
 {
-
 }
+
 /*
 =================================================================================
 Singleton Design Pattern
@@ -48,8 +48,7 @@ bool cSDL2WNDManager::initWND(string strWNDTitle, int iWidth, int iHeight)
 		return false;
 	}
 
-	mainWindow = SDL_CreateWindow(strWNDTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		iWidth, iHeight, SDL_WINDOW_OPENGL);
+	mainWindow = SDL_CreateWindow(strWNDTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, iWidth, iHeight, SDL_WINDOW_OPENGL);
 
 	// Check that everything worked out okay
 	if (!mainWindow)
@@ -63,33 +62,29 @@ bool cSDL2WNDManager::initWND(string strWNDTitle, int iWidth, int iHeight)
 		// Get the renderer
 		theRenderer = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-			if (theRenderer != 0)
-			{
-				std::cout << "Renderer creation succeeded" << std::endl;
+		if (theRenderer != 0)
+		{
+			std::cout << "Renderer creation succeeded" << std::endl;
 
-				SDL_SetRenderDrawColor(theRenderer, 0, 0, 100, 255);
-			}
-			else
-			{
-				std::cout << "Renderer creation failed" << std::endl;
-				return false;
-			}
+			SDL_SetRenderDrawColor(theRenderer, 0, 0, 100, 255);
+		}
+		else
+		{
+			std::cout << "Renderer creation failed" << std::endl;
+			return false;
+		}
 	}
-
 	return true;
 }
 
 void cSDL2WNDManager::CheckSDLError(int line = -1)
 {
 	string error = SDL_GetError();
-
 	if (error != "")
 	{
 		cout << "SLD Error : " << error << std::endl;
-
 		if (line != -1)
-			cout << "\nLine : " << line << std::endl;
-
+		cout << "\nLine : " << line << std::endl;
 		SDL_ClearError();
 	}
 }

@@ -70,22 +70,23 @@ SDL_Texture* cFont::createTextTexture(SDL_Renderer* theRenderer, LPCSTR text, te
 			theTxtSurface = TTF_RenderText_Solid(theFont, text, txtColour);
 		}
 		break;
+
 		case BLENDED:
 		{
 			theTxtSurface = TTF_RenderText_Blended(theFont, text, txtColour);
 		}
 		break;
+
 		case SHADED:
 		{
 			theTxtSurface = TTF_RenderText_Shaded(theFont, text, txtColour, txtBkgd);
 		}
 		break;
-		default:
-			break;
-	}
 
+		default:
+		break;
+	}
 	theTxtTexture = SDL_CreateTextureFromSurface(theRenderer, theTxtSurface);
 	SDL_FreeSurface(theTxtSurface);
-
 	return theTxtTexture;
 }

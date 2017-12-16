@@ -23,11 +23,13 @@ cFileHandler::cFileHandler(string fileName)
 int cFileHandler::openFile(int mode)
 {
 	theFile.open(m_filename, mode);
-	if (!theFile.is_open()) {
+	if (!theFile.is_open()) 
+	{
 		// Can not open file
 		return ERROR;
 	}
-	else {
+	else 
+	{
 		return TRUE;
 	}
 }
@@ -62,6 +64,7 @@ void cFileHandler::setFileName(string aFilename)
 {
 	this->m_filename = aFilename;
 }
+
 /*
 =================================================================
 Get the filename

@@ -1,5 +1,5 @@
-#ifndef _ASTEROIDSGAME_H
-#define _ASTEROIDSGAME_H
+#ifndef _OGCEROIDSGAME_H
+#define _OGCGAME_H
 
 // Card game headers
 #include "GameConstants.h"
@@ -8,7 +8,6 @@
 #include "cTextureMgr.h"
 #include "cTexture.h"
 #include "cSpaceJunk.h"
-#include "cBullet.h"
 #include "cSpaceShip.h"
 #include "cFontMgr.h"
 #include "cSoundMgr.h"

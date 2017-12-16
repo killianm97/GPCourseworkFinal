@@ -33,7 +33,7 @@ cFontMgr::cFontMgr()
 {
 }
 
-cFontMgr::~cFontMgr()							// Destructor.
+cFontMgr::~cFontMgr() // Destructor.
 {
 	deleteFont();
 	TTF_Quit();
@@ -53,7 +53,7 @@ bool cFontMgr::initFontLib()
 	}
 }
 
-void cFontMgr::addFont(LPCSTR fontName, LPCSTR fileName, int fontSize)  // add font to the Font collection
+void cFontMgr::addFont(LPCSTR fontName, LPCSTR fileName, int fontSize) // Add font to the Font collection
 {
 	if (!getFont(fontName))
 	{
@@ -63,7 +63,7 @@ void cFontMgr::addFont(LPCSTR fontName, LPCSTR fileName, int fontSize)  // add f
 	}
 }
 
-cFont* cFontMgr::getFont(LPCSTR fontName)				// return the font for use
+cFont* cFontMgr::getFont(LPCSTR fontName) // Returns the font for use
 {
 	map<LPCSTR, cFont*>::iterator theFont = fontList.find(fontName);
 	if (theFont != fontList.end())
@@ -76,7 +76,7 @@ cFont* cFontMgr::getFont(LPCSTR fontName)				// return the font for use
 	}
 }
 
-void cFontMgr::deleteFont()								// delete font.
+void cFontMgr::deleteFont()	// Deletes font
 {
 	for (map<LPCSTR, cFont*>::const_iterator theFont = fontList.begin(); theFont != fontList.end(); theFont++)
 	{

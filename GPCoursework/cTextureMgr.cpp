@@ -30,7 +30,6 @@ cTextureMgr* cTextureMgr::getInstance()
 */
 cTextureMgr::cTextureMgr()
 {
-	
 }
 
 cTextureMgr::cTextureMgr(SDL_Renderer* theRenderer)
@@ -79,6 +78,7 @@ void cTextureMgr::deleteTexture(LPCSTR txtName)
 	map<LPCSTR, cTexture*>::iterator txt = textureList.find(txtName);
 	this->textureList.erase(txt);
 }
+
 /*
 =================
 - return the texture.
@@ -96,6 +96,7 @@ cTexture* cTextureMgr::getTexture(LPCSTR textureName)        // return the textu
 		return NULL;
 	}
 }
+
 /*
 =================
 - Set the renderer.

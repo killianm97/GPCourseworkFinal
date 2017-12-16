@@ -11,6 +11,7 @@ cSound::cSound()
 {
 	this->theSoundType = SFX;
 }
+
 cSound::cSound(soundType sndType)
 {
 	this->theSoundType = sndType;
@@ -35,6 +36,7 @@ bool cSound::load(LPCSTR filename)
 			return true;
 		}
 		break;
+		
 		case MUSIC:
 		{
 			this->sMusic = Mix_LoadMUS(filename);
@@ -46,8 +48,9 @@ bool cSound::load(LPCSTR filename)
 			return true;
 		}
 		break;
+
 		default:
-			return false;
+		return false;
 	}
 }
 
@@ -60,12 +63,14 @@ void cSound::play(int loop)
 			Mix_PlayChannel(-1, this->SoundFX, loop);
 		}
 		break;
+
 		case MUSIC:
 		{
 			Mix_PlayMusic(this->sMusic, loop);
 		}
 		break;
+
 		default:
-			break;
+		break;
 	}
 }

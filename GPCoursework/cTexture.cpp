@@ -5,18 +5,22 @@ cTexture.cpp
 - CPP file for the cTexture class
 =================
 */
+
 #include "cTexture.h"
 using namespace std;
+
 /*
 =================
 - Data constructor initializes the OpenGL Texture ID object
 - Is always called, thus ensures all OpenGL Texture ID objects are in a consistent state.
 =================
 */
+
 cTexture::cTexture()
 {
 	cTexture::sdlTextureID = NULL;
 }
+
 /*
 =================
 - Data constructor initializes the OpenGL Texture ID object
@@ -24,6 +28,7 @@ cTexture::cTexture()
 * @param theFilename The image file to load
 =================
 */
+
 cTexture::cTexture(LPCSTR theFilename, SDL_Renderer *theRenderer)
 {
 	cTexture::loadTexture(theFilename, theRenderer);
@@ -65,9 +70,8 @@ bool cTexture::loadTexture(LPCSTR theFilename, SDL_Renderer *theRenderer) 	// cr
 
 	return false;
 }
-bool cTexture::loadTexture(SDL_Texture* theTexture) 	// create the texture for use.
+bool cTexture::loadTexture(SDL_Texture* theTexture) // create the texture for use.
 {
-
 	// Call SDL_Image IMG_LoadTexture to create the desired texture
 	sdlTextureID = theTexture;
 
@@ -83,15 +87,15 @@ bool cTexture::loadTexture(SDL_Texture* theTexture) 	// create the texture for u
 		cout << "Texture could not be loaded!!" << endl;
 		cout << SDL_GetError() << endl;
 	}
-
 	return false;
 }
+
 /*
 =================
 - return the texture.
 =================
 */
-SDL_Texture* cTexture::getTexture()        // return the texture.
+SDL_Texture* cTexture::getTexture() // return the texture.
 {
 	return cTexture::sdlTextureID;
 }
@@ -101,19 +105,21 @@ SDL_Texture* cTexture::getTexture()        // return the texture.
 - Return width of texture.
 =================
 */
-int cTexture::getTWidth() 						// Return width of texture;
+int cTexture::getTWidth() // Return width of texture;
 {
 	return textureWidth;
 }
+
 /*
 =================
 - Return height of texture.
 =================
 */
-int cTexture::getTHeight() 						// Return height of texture;
+int cTexture::getTHeight() // Return height of texture;
 {
 	return textureHeight;
 }
+
 /*
 =================
 - Render the texture.
@@ -130,6 +136,7 @@ void cTexture::renderTexture(SDL_Renderer* theRenderer, SDL_Texture* ptheTexture
 	//SDL_RenderSetScale(theRenderer, theScaling.X, theScaling.Y);
 	SDL_RenderCopyEx(theRenderer, ptheTexture, theSourceRect, theDestRect, rotAngle, spriteCentre, SDL_FLIP_NONE);
 }
+
 /*
 ==========================================================================
 Render the text using the desired font
