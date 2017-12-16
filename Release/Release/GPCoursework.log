@@ -1,0 +1,43 @@
+﻿  OGCSDL.cpp
+  cGame.cpp
+cGame.cpp(130): warning C4018: '<': signed/unsigned mismatch
+cGame.cpp(149): warning C4018: '<': signed/unsigned mismatch
+cGame.cpp(151): warning C4018: '<': signed/unsigned mismatch
+cGame.cpp(224): warning C4018: '<': signed/unsigned mismatch
+cGame.cpp(372): warning C4018: '<': signed/unsigned mismatch
+cGame.cpp(429): warning C4305: '=': truncation from 'double' to 'float'
+cGame.cpp(528): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+cGame.cpp(547): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+cGame.cpp(549): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+cGame.cpp(721): warning C4305: '+=': truncation from 'double' to 'float'
+cGame.cpp(726): warning C4305: '+=': truncation from 'double' to 'float'
+cGame.cpp(737): warning C4305: '-=': truncation from 'double' to 'float'
+cGame.cpp(742): warning C4305: '-=': truncation from 'double' to 'float'
+  Generating code
+  14 of 1007 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  GPCoursework.vcxproj -> C:\Users\killi\source\repos\GPCoursework\Release\GPCoursework.exe
+  copying SDL2.dll to debug directory
+  SDL2\SDL2-2.0.4\lib\x86\SDL2.dll
+  1 File(s) copied
+  SDL2\SDL2_image-2.0.1\lib\x86\libjpeg-9.dll
+  SDL2\SDL2_image-2.0.1\lib\x86\libpng16-16.dll
+  SDL2\SDL2_image-2.0.1\lib\x86\libtiff-5.dll
+  SDL2\SDL2_image-2.0.1\lib\x86\libwebp-4.dll
+  SDL2\SDL2_image-2.0.1\lib\x86\SDL2_image.dll
+  SDL2\SDL2_image-2.0.1\lib\x86\zlib1.dll
+  6 File(s) copied
+  SDL2\SDL2_mixer-2.0.1\lib\x86\libFLAC-8.dll
+  SDL2\SDL2_mixer-2.0.1\lib\x86\libmodplug-1.dll
+  SDL2\SDL2_mixer-2.0.1\lib\x86\libogg-0.dll
+  SDL2\SDL2_mixer-2.0.1\lib\x86\libvorbis-0.dll
+  SDL2\SDL2_mixer-2.0.1\lib\x86\libvorbisfile-3.dll
+  SDL2\SDL2_mixer-2.0.1\lib\x86\SDL2_mixer.dll
+  SDL2\SDL2_mixer-2.0.1\lib\x86\smpeg2.dll
+  7 File(s) copied
+  SDL2\SDL2_ttf-2.0.14\lib\x86\libfreetype-6.dll
+  SDL2\SDL2_ttf-2.0.14\lib\x86\SDL2_ttf.dll
+  SDL2\SDL2_ttf-2.0.14\lib\x86\zlib1.dll
+  3 File(s) copied
