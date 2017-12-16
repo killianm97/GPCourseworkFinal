@@ -178,7 +178,7 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		"HelpText1",
 		"HelpText2",
 		"HelpText3",
-		"LatestScore" };
+		"Credits"};
 	gameTextList = 
 	{ "Orbital Garbage Collector",
 		"Spin to Collect SpaceJunk!",
@@ -192,7 +192,7 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		"Move into the way of SpaceJunk to catch it",
 		"When 1 spawns, you get 1 point per catch",
 		"When 2 spawn, you get 2 points per catch",
-		"Recent Score: 0" };
+		"Music by Paddy Hennessy"};
 
 	theTextureMgr->addTexture("MainTitle", theFontMgr->getFont("spaceAge")->createTextTexture(theRenderer, gameTextList[0], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
 	theTextureMgr->addTexture("SubTitle", theFontMgr->getFont("spaceAgeSmall")->createTextTexture(theRenderer, gameTextList[1], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
@@ -206,6 +206,8 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	theTextureMgr->addTexture("HelpText1", theFontMgr->getFont("spaceAgeSmall")->createTextTexture(theRenderer, gameTextList[9], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
 	theTextureMgr->addTexture("HelpText2", theFontMgr->getFont("spaceAgeSmall")->createTextTexture(theRenderer, gameTextList[10], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
 	theTextureMgr->addTexture("HelpText3", theFontMgr->getFont("spaceAgeSmall")->createTextTexture(theRenderer, gameTextList[11], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
+	theTextureMgr->addTexture("Credits", theFontMgr->getFont("digital")->createTextTexture(theRenderer, gameTextList[12], SOLID, { 255, 255, 255, 255 }, { 0, 0, 0, 0 }));
+
 	
 	// Load game sounds
 	soundList = 
@@ -467,6 +469,11 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		SDL_Rect pos3 = { 230, 150, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
 		FPoint scale3 = { 1, 1 };
 		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos3, scale3);
+
+		(*tempTextTexture) = theTextureMgr->getTexture("Credits");
+		SDL_Rect pos4 = { 125, 775, (*tempTextTexture)->getTextureRect().w, (*tempTextTexture)->getTextureRect().h };
+		FPoint scale4 = { 1, 1 };
+		(*tempTextTexture)->renderTexture(theRenderer, (*tempTextTexture)->getTexture(), &(*tempTextTexture)->getTextureRect(), &pos4, scale4);
 
 		// Tells game that is not in PLAYING game state
 		isPlaying = false;
