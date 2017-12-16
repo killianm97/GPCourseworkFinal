@@ -48,17 +48,17 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	scoreChanged = false;
 
 	// Set filename
-	scoreFile.setFileName("Data/HighScores.txt");
+	theScoreFile.setFileName("Data/HighScores.txt");
 
 	// Checks if the file is available
-	if (!scoreFile.openFile(ios::out)) //open file for input output
+	if (!theScoreFile.openFile(ios::out)) //open file for input output
 	{
-		cout << "Could not open the score file '" << scoreFile.getFileName() << "'. Error " << SDL_GetError() << endl;
+		cout << "Could not open the score file '" << theScoreFile.getFileName() << "'. Error " << SDL_GetError() << endl;
 		fileAvailable = false;
 	}
 	else
 	{
-		cout << "File '" << scoreFile.getFileName() << "' opened for input and ready to go!" << endl;
+		cout << "File '" << theScoreFile.getFileName() << "' opened for input and ready to go!" << endl;
 		fileAvailable = true;
 	}
 
@@ -434,11 +434,11 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 		// Saves score
 		if (!scoreChanged) {
-			ifstream scoreSave;
-			scoreSave.open("Data/HighScores.txt");
-			scoreSave.clear();
-			scoreSave >> shadowScoreAsString;
-			scoreSave.close();
+			ifstream scoreSaving;
+			scoreSaving.open("Data/HighScores.txt");
+			scoreSaving.clear();
+			scoreSaving >> shadowScoreAsString;
+			scoreSaving.close();
 			scoreChanged = true;
 		}
 
